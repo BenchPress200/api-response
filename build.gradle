@@ -53,7 +53,7 @@ publishing {
                     developer {
                         id = 'benchpress200'
                         name = 'BenchPress200'
-                        email = 'your@email.com'
+                        email = 'jms0538@naver.com'
                     }
                 }
                 scm {
