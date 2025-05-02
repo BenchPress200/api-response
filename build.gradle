@@ -1,0 +1,74 @@
+plugins {
+    id 'java'
+    id 'maven-publish'
+    id 'signing'
+    id 'org.springframework.boot' version '3.4.5'
+    id 'io.spring.dependency-management' version '1.1.7'
+}
+
+group = 'io.github.benchpress200'
+version = '0.0.1'
+
+java {
+    withSourcesJar()
+    withJavadocJar()
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+}
+
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            from components.java
+
+            groupId = 'io.github.benchpress200'
+            artifactId = 'api-response'
+            version = '0.0.1'
+
+            pom {
+                name = 'ApiResponse'
+                description = 'A simple Spring API response builder'
+                url = 'https://github.com/BenchPress200/api-response'
+                licenses {
+                    license {
+                        name = 'MIT License'
+                        url = 'https://opensource.org/licenses/MIT'
+                    }
+                }
+                developers {
+                    developer {
+                        id = 'benchpress200'
+                        name = 'BenchPress200'
+                        email = 'your@email.com'
+                    }
+                }
+                scm {
+                    connection = 'scm:git:git://github.com/BenchPress200/api-response.git'
+                    developerConnection = 'scm:git:ssh://github.com:BenchPress200/api-response.git'
+                    url = 'https://github.com/BenchPress200/api-response'
+                }
+            }
+        }
+    }
+
+    repositories {
+        maven {
+            name = "sonatype"
+            url = uri("https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/")
+            credentials {
+                username = project.findProperty("ossrhUsername") ?: ""
+                password = project.findProperty("ossrhPassword") ?: ""
+            }
+        }
+    }
+}
+
+signing {
+    sign publishing.publications.mavenJava
+}
