@@ -13,18 +13,18 @@ Supports fluent-style building and UTC timestamps.
 <dependency>
   <groupId>io.github.benchpress200</groupId>
   <artifactId>api-response</artifactId>
-  <version>0.0.1</version>
+  <version>0.0.2</version>
 </dependency>
 ```
 
 ### Gradle (Kotlin DSL)
 ```kotlin
-implementation("io.github.benchpress200:api-response:0.0.1")
+implementation("io.github.benchpress200:api-response:0.0.2")
 ```
 
 ### Gradle (Groovy DSL)
 ```groovy
-implementation 'io.github.benchpress200:api-response:0.0.1'
+implementation 'io.github.benchpress200:api-response:0.0.2'
 ```
 
 ## 🚀 Usage
