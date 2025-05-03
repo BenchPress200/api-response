@@ -1,10 +1,12 @@
 # ApiResponse
 
 A simple, reusable API response builder for Spring applications.  
-Supports fluent-style building and UTC timestamps.
+Provides a chainable API for constructing responses and ensures all timestamps are recorded in UTC.
 
 ![JDK](https://img.shields.io/badge/JDK-17+-green)
 ![Spring Boot](https://img.shields.io/badge/Spring%20Boot-3.4.5-blue)
+
+<br>
 
 ## 📦 Dependency
 
@@ -17,15 +19,17 @@ Supports fluent-style building and UTC timestamps.
 </dependency>
 ```
 
-### Gradle (Kotlin DSL)
+### Gradle - Kotlin
 ```kotlin
 implementation("io.github.benchpress200:api-response:0.0.2")
 ```
 
-### Gradle (Groovy DSL)
+### Gradle - Groovy
 ```groovy
 implementation 'io.github.benchpress200:api-response:0.0.2'
 ```
+
+<br>
 
 ## 🚀 Usage
 ### Example: REST Controller
@@ -42,19 +46,23 @@ public class SampleController {
     public ResponseEntity<?> hello() {
         return ApiResponse.builder()
             .status(HttpStatus.OK)
-            .message("Request successful")
-            .data("Hello, World!")
+            .message("Success")
+            .data(new User(1, "ian"))
             .build();
     }
 }
 ```
 
 ### Response Body
+
 ```json
 {
   "status": 200,
   "message": "Request successful",
-  "data": "Hello, World!",
+  "data": {
+    "id": 1,
+    "name": "ian"
+  },
   "timestamp": "2025-05-03T12:00:00Z"
 }
 ```
