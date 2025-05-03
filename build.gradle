@@ -1,10 +1,14 @@
+import com.vanniktech.maven.publish.SonatypeHost
+
+
 plugins {
     id 'java'
     id 'org.springframework.boot' version '3.4.5'
     id 'io.spring.dependency-management' version '1.1.7'
-    id "maven-publish"
+    id "com.vanniktech.maven.publish" version "0.28.0"
     id 'signing'
 }
+
 
 def buildPropertiesFile = file("build.properties")
 def buildProps = new Properties()
@@ -37,57 +41,43 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-web:3.4.5'
 }
 
-publishing {
-    publications {
-        mavenJava(MavenPublication) {
-            from components.java
-
-            groupId = 'io.github.benchpress200'
-            artifactId = 'api-response'
-            version = '0.0.1'
-
-            pom {
-                name = 'ApiResponse'
-                description = 'A simple Spring API response builder'
-                url = 'https://github.com/BenchPress200/api-response'
-
-                licenses {
-                    license {
-                        name = 'MIT License'
-                        url = 'https://opensource.org/licenses/MIT'
-                    }
-                }
-
-                developers {
-                    developer {
-                        id = 'benchpress200'
-                        name = 'BenchPress200'
-                        email = 'jms0538@naver.com'
-                    }
-                }
-
-                scm {
-                    connection = 'scm:git:git://github.com/BenchPress200/api-response.git'
-                    developerConnection = 'scm:git:ssh://github.com:BenchPress200/api-response.git'
-                    url = 'https://github.com/BenchPress200/api-response'
-                }
-            }
-        }
-    }
-
-    repositories {
-        maven {
-            name = 'ossrh-staging-api'
-            url = "https://ossrh-staging-api.central.sonatype.com/service/local/staging/deploy/maven2/"
-            credentials {
-                username = ossrhUsername
-                password = ossrhPassword
-            }
-        }
-    }
-}
-
 signing {
     useGpgCmd()
     sign publishing.publications.mavenJava
+}
+
+mavenPublishing {
+    signAllPublications()
+    publishToMavenCentral(SonatypeHost.CENTRAL_PORTAL)
+
+    coordinates("io.github.benchpress200", "api-response", "0.0.1")
+
+    pom {
+        name = 'api-response'
+        description = 'A simple Spring API response builder'
+        url = 'https://github.com/BenchPress200/api-response'
+
+        // 라이선스 정보
+        licenses {
+            license {
+                name = 'MIT License'
+                url = 'https://opensource.org/licenses/MIT'
+            }
+        }
+
+        // 개발자 정보
+        developers {
+            developer {
+                id = 'benchpress200'
+                name = 'Mineong Jeong'
+                email = 'jms0538@naver.com'
+            }
+        }
+
+        scm {
+            connection = 'scm:git:git://github.com/BenchPress200/api-response.git'
+            developerConnection = 'scm:git:ssh://github.com:BenchPress200/api-response.git'
+            url = 'https://github.com/BenchPress200/api-response/tree/main'
+        }
+    }
 }
