@@ -9,8 +9,21 @@ plugins {
     id 'signing'
 }
 
+java {
+    sourceCompatibility = JavaVersion.VERSION_17
+    targetCompatibility = JavaVersion.VERSION_17
+}
+
+bootJar {
+    enabled = false
+}
+
+jar {
+    enabled = true
+}
+
 group = 'io.github.benchpress200'
-version = '0.0.1'
+version = '0.0.2'
 
 repositories {
     mavenCentral()
@@ -30,7 +43,7 @@ mavenPublishing {
     signAllPublications()
     publishToMavenCentral(SonatypeHost.CENTRAL_PORTAL)
 
-    coordinates("io.github.benchpress200", "api-response", "0.0.1")
+    coordinates("io.github.benchpress200", "api-response", "0.0.2")
 
     pom {
         name = 'api-response'
