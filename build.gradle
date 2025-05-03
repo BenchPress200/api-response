@@ -43,7 +43,6 @@ dependencies {
 
 signing {
     useGpgCmd()
-    sign publishing.publications.mavenJava
 }
 
 mavenPublishing {
