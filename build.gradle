@@ -1,10 +1,21 @@
 plugins {
     id 'java'
-    id 'maven-publish'
-    id 'signing'
     id 'org.springframework.boot' version '3.4.5'
     id 'io.spring.dependency-management' version '1.1.7'
+    id "maven-publish"
+    id 'signing'
 }
+
+def buildPropertiesFile = file("build.properties")
+def buildProps = new Properties()
+
+if (buildPropertiesFile.exists()) {
+    buildProps.load(new FileInputStream(buildPropertiesFile))
+}
+
+def ossrhUsername = buildProps.getProperty("ossrhUsername", "")
+def ossrhPassword = buildProps.getProperty("ossrhPassword", "")
+
 
 group = 'io.github.benchpress200'
 version = '0.0.1'
@@ -12,10 +23,6 @@ version = '0.0.1'
 java {
     withSourcesJar()
     withJavadocJar()
-}
-
-bootJar {
-    enabled = false
 }
 
 jar {
@@ -27,7 +34,7 @@ repositories {
 }
 
 dependencies {
-    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.springframework.boot:spring-boot-starter-web:3.4.5'
 }
 
 publishing {
@@ -43,12 +50,14 @@ publishing {
                 name = 'ApiResponse'
                 description = 'A simple Spring API response builder'
                 url = 'https://github.com/BenchPress200/api-response'
+
                 licenses {
                     license {
                         name = 'MIT License'
                         url = 'https://opensource.org/licenses/MIT'
                     }
                 }
+
                 developers {
                     developer {
                         id = 'benchpress200'
@@ -56,19 +65,11 @@ publishing {
                         email = 'jms0538@naver.com'
                     }
                 }
+
                 scm {
                     connection = 'scm:git:git://github.com/BenchPress200/api-response.git'
                     developerConnection = 'scm:git:ssh://github.com:BenchPress200/api-response.git'
                     url = 'https://github.com/BenchPress200/api-response'
-                }
-            }
-
-            versionMapping {
-                usage('java-api') {
-                    fromResolutionResult()
-                }
-                usage('java-runtime') {
-                    fromResolutionResult()
                 }
             }
         }
@@ -76,11 +77,11 @@ publishing {
 
     repositories {
         maven {
-            name = "sonatype"
-            url = uri("https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/")
+            name = 'ossrh-staging-api'
+            url = "https://ossrh-staging-api.central.sonatype.com/service/local/staging/deploy/maven2/"
             credentials {
-                username = project.findProperty("ossrhUsername") ?: ""
-                password = project.findProperty("ossrhPassword") ?: ""
+                username = ossrhUsername
+                password = ossrhPassword
             }
         }
     }
