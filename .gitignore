@@ -37,5 +37,3 @@ out/
 .vscode/
 
 gradle.properties
-
-build.properties

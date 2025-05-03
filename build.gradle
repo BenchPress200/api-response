@@ -22,12 +22,8 @@ tasks.withType(Javadoc) {
     }
 }
 
-dependencies {
-    implementation 'org.springframework.boot:spring-boot-starter-web:3.4.5'
-}
-
 signing {
-    useGpgCmd()
+    sign publishing.publications
 }
 
 mavenPublishing {
@@ -64,4 +60,8 @@ mavenPublishing {
             url = 'https://github.com/BenchPress200/api-response/tree/main'
         }
     }
+}
+
+dependencies {
+    implementation 'org.springframework.boot:spring-boot-starter-web:3.4.5'
 }
