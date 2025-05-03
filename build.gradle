@@ -16,6 +16,12 @@ repositories {
     mavenCentral()
 }
 
+tasks.withType(Javadoc) {
+    options {
+        encoding 'UTF-8'
+    }
+}
+
 dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-web:3.4.5'
 }
