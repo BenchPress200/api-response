@@ -9,29 +9,8 @@ plugins {
     id 'signing'
 }
 
-
-def buildPropertiesFile = file("build.properties")
-def buildProps = new Properties()
-
-if (buildPropertiesFile.exists()) {
-    buildProps.load(new FileInputStream(buildPropertiesFile))
-}
-
-def ossrhUsername = buildProps.getProperty("ossrhUsername", "")
-def ossrhPassword = buildProps.getProperty("ossrhPassword", "")
-
-
 group = 'io.github.benchpress200'
 version = '0.0.1'
-
-java {
-    withSourcesJar()
-    withJavadocJar()
-}
-
-jar {
-    enabled = true
-}
 
 repositories {
     mavenCentral()
